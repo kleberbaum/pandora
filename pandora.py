@@ -39,7 +39,7 @@ class CLIIO:
                 cls.print_to_shell(re_value[0] + '\n')
                 counter += re_value[1]
         else:
-            BOX.commands('help')
+            cls.print_to_shell(BOX.commands('help'[0])()[0])
             for cmd in cls.get_cmd('>> '):
                 cmd = cmd.split(' ', 1)
                 cls.print_to_shell(BOX.commands(cmd[0][0])(*cmd)[0])
