@@ -17,7 +17,7 @@ from tinytag import TinyTag
 
 
 '''path to sinusbot root_dir'''
-root_dir = '/opt/ts3soundboard/'
+root_dir = None
 
 # queues for communication between threads
 q_create_slink = queue.Queue()
@@ -43,6 +43,7 @@ class CLIIO:
     # run!
     @classmethod
     def run(cls):
+        root_dir = BOX.os(os.name)
         argv = os.sys.argv[1:]
 
         if len(argv) > 0:
@@ -217,6 +218,14 @@ class TOOLBOX:
 # BOX object
 class BOX:
     # meths
+    @classmethod
+    def os(cls, os):
+        return{
+            'posix': lambda: '/opt/ts3soundboard/',
+            'nt': lambda: 'C:\\SinusBot\\',
+            'mac': lambda: os.sys.exit()
+        }.get(os, lambda: cls.help)()
+
     @classmethod
     def commands(cls, cmd):
         return{
