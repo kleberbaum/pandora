@@ -61,13 +61,13 @@ class CLIIO:
 # FILEIO class -> handles all input/output from/to files
 class FILEIO:
     @staticmethod
-    def create_slink_t(pill2kill):
+    def create_slink_t(pill2kill):  # <- code of create_slink_t thread
         fe_log = None
 
         try:
             while not pill2kill.is_set() or q_create_slink.full():
                 try:
-                    source, e_path_n = q_create_slink.get(block=True)
+                    source, e_path_n = q_create_slink.get(block=True)  # -> wait for input
                     link_dst = [f'{root_dir}data/store/' + str(*name) + f'/{e_path_n}' for name in FILEIO.get_folderns_and_files(f'{root_dir}data/store/') if isinstance(name, tuple)][1]
                     os.symlink(source, link_dst)
                     q_create_slink.task_done()
