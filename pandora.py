@@ -27,6 +27,19 @@ q_to_db = queue.Queue()
 # CLIIO class -> handles all command line input/output
 class CLIIO:
 
+    # ASCII banner
+    ascii_banner='                                                                  \n'\
+                 ' ██▓███   ▄▄▄       ███▄    █ ▓█████▄  ▒█████   ██▀███   ▄▄▄      \n'\
+                 '▓██░  ██▒▒████▄     ██ ▀█   █ ▒██▀ ██▌▒██▒  ██▒▓██ ▒ ██▒▒████▄    \n'\
+                 '▓██░ ██▓▒▒██  ▀█▄  ▓██  ▀█ ██▒░██   █▌▒██░  ██▒▓██ ░▄█ ▒▒██  ▀█▄  \n'\
+                 '▒██▄█▓▒ ▒░██▄▄▄▄██ ▓██▒  ▐▌██▒░▓█▄   ▌▒██   ██░▒██▀▀█▄  ░██▄▄▄▄██ \n'\
+                 '▒██▒ ░  ░ ▓█   ▓██▒▒██░   ▓██░░▒████▓ ░ ████▓▒░░██▓ ▒██▒ ▓█   ▓██▒\n'\
+                 '▒▓▒░ ░  ░ ▒▒   ▓▒█░░ ▒░   ▒ ▒  ▒▒▓  ▒ ░ ▒░▒░▒░ ░ ▒▓ ░▒▓░ ▒▒   ▓▒█░\n'\
+                 '░▒ ░       ▒   ▒▒ ░░ ░░   ░ ▒░ ░ ▒  ▒   ░ ▒ ▒░   ░▒ ░ ▒░  ▒   ▒▒ ░\n'\
+                 '░░         ░   ▒      ░   ░ ░  ░ ░  ░ ░ ░ ░ ▒    ░░   ░   ░   ▒   \n'\
+                 '               ░  ░         ░    ░        ░ ░     ░           ░  ░\n'\
+                 '                               ░                                  \n'
+
     # run!
     @classmethod
     def run(cls):
@@ -39,6 +52,8 @@ class CLIIO:
                 cls.print_to_shell(re_value[0] + '\n')
                 counter += re_value[1]
         else:
+            cls.print_to_shell(f'\x1b[31m{cls.ascii_banner}\x1b[0m')
+            cls.print_to_shell(f'root_dir {root_dir}\n')
             cls.print_to_shell(BOX.commands('help'[0])()[0])
             for cmd in cls.get_cmd('>> '):
                 cmd = cmd.split(' ', 1)
